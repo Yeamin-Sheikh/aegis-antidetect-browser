@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 64" fill="none">
+  <defs>
+    <linearGradient id="aegis-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+  </defs>
+  <!-- Cyber Shield & Core Matrix -->
+  <g transform="translate(8, 7)">
+    <rect x="0" y="0" width="50" height="50" rx="12" fill="#0B1120" stroke="url(#aegis-grad)" stroke-width="1.8" />
+    <!-- Shield Outline -->
+    <path d="M25 12 L37 17 V27 C37 34 25 40 25 40 C25 40 13 34 13 27 V17 Z" fill="none" stroke="url(#aegis-grad)" stroke-width="2" stroke-linecap="round" />
+    <!-- Pulse Center Node -->
+    <circle cx="25" cy="25" r="4" fill="#06B6D4" />
+    <path d="M25 18 V21 M25 29 V32 M18 25 H21 M29 25 H32" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" />
+  </g>
+  <!-- Typography -->
+  <text x="70" y="28" font-family="'JetBrains Mono', -apple-system, monospace" font-weight="900" font-size="20" fill="#F8FAFC" letter-spacing="1">AEGIS</text>
+  <text x="146" y="28" font-family="'JetBrains Mono', -apple-system, monospace" font-weight="700" font-size="20" fill="#06B6D4" letter-spacing="0.5">BROWSER</text>
+  <text x="70" y="47" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="9.5" fill="#94A3B8" letter-spacing="2">OPEN SOURCE ANTI-DETECT &bull; FINGERPRINT SPOOFER</text>
+</svg>

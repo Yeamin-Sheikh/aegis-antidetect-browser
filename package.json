@@ -1,0 +1,26 @@
+{
+  "name": "aegis-antidetect-browser",
+  "version": "1.0.0",
+  "description": "Open source anti-detect browser and fingerprint spoofing engine for multi-profile isolation and automation",
+  "type": "module",
+  "bin": {
+    "aegis": "./bin/aegis-launch.js"
+  },
+  "scripts": {
+    "test": "node tests/runner.js",
+    "start": "npx serve .",
+    "launch": "node bin/aegis-launch.js"
+  },
+  "keywords": [
+    "antidetect",
+    "fingerprint-spoofing",
+    "browser-isolation",
+    "canvas-spoofing",
+    "webgl-spoofing",
+    "webrtc-leak-protection",
+    "playwright",
+    "puppeteer"
+  ],
+  "author": "Yeamin Sheikh <yeaminsheikh12@gmail.com>",
+  "license": "MIT"
+}
