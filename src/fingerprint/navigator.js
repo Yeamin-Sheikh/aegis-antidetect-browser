@@ -1,6 +1,7 @@
 /**
  * Aegis Navigator & Hardware Spoofing Engine
- * Removes navigator.webdriver flag, spoofs CPU cores, RAM size, platform, and user-agent.
+ * Properly patches Navigator.prototype.webdriver to prevent hasOwnProperty leak,
+ * spoofs CPU cores, RAM size, platform, languages, user-agent, and realistic plugins.
  */
 export function injectNavigatorSpoof({
   userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
@@ -9,44 +10,63 @@ export function injectNavigatorSpoof({
   deviceMemory = 16,
   languages = ['en-US', 'en']
 } = {}) {
-  if (typeof navigator === 'undefined') return;
+  if (typeof navigator === 'undefined') return {};
 
-  // Mask webdriver
-  delete Object.getPrototypeOf(navigator).webdriver;
-  Object.defineProperty(navigator, 'webdriver', {
+  const navProto = Object.getPrototypeOf(navigator) || Navigator.prototype;
+
+  // Mask webdriver on prototype so navigator.hasOwnProperty('webdriver') is false
+  try {
+    delete navigator.webdriver;
+  } catch {}
+
+  Object.defineProperty(navProto, 'webdriver', {
     get: () => false,
-    configurable: true
+    configurable: true,
+    enumerable: true
   });
 
   // Hardware concurrency (CPU cores)
-  Object.defineProperty(navigator, 'hardwareConcurrency', {
+  Object.defineProperty(navProto, 'hardwareConcurrency', {
     get: () => Number(hardwareConcurrency),
     configurable: true
   });
 
   // Device memory (RAM in GB)
-  Object.defineProperty(navigator, 'deviceMemory', {
+  Object.defineProperty(navProto, 'deviceMemory', {
     get: () => Number(deviceMemory),
     configurable: true
   });
 
   // Platform
-  Object.defineProperty(navigator, 'platform', {
+  Object.defineProperty(navProto, 'platform', {
     get: () => platform,
     configurable: true
   });
 
   // Languages
-  Object.defineProperty(navigator, 'languages', {
+  Object.defineProperty(navProto, 'languages', {
     get: () => languages,
     configurable: true
   });
 
   // User Agent
-  Object.defineProperty(navigator, 'userAgent', {
+  Object.defineProperty(navProto, 'userAgent', {
     get: () => userAgent,
     configurable: true
   });
+
+  // Emulate standard Chrome plugins to defeat headless 0-plugin checks
+  if (!navigator.plugins || navigator.plugins.length === 0) {
+    const mockPlugins = [
+      { name: 'PDF Viewer', filename: 'internal-pdf-viewer', description: 'Portable Document Format' },
+      { name: 'Chrome PDF Viewer', filename: 'internal-pdf-viewer', description: 'Portable Document Format' },
+      { name: 'Chromium PDF Viewer', filename: 'internal-pdf-viewer', description: 'Portable Document Format' }
+    ];
+    Object.defineProperty(navProto, 'plugins', {
+      get: () => mockPlugins,
+      configurable: true
+    });
+  }
 
   return {
     hardwareConcurrency,

@@ -1,0 +1,23 @@
+{
+  "browserName": "Aegis Anti-Detect Browser",
+  "version": "1.0.0",
+  "defaultSettings": {
+    "engine": "chromium",
+    "webrtcPolicy": "disable_non_proxied_udp",
+    "enforceWebRTCPermissionCheck": true,
+    "canvasNoiseLevel": 0.002,
+    "emulatePlugins": true,
+    "defaultResolution": "1920x1080",
+    "userDataPath": "./userData"
+  },
+  "proxyProfiles": {
+    "timeoutMs": 5000,
+    "rotationIntervalSec": 300,
+    "supportedProtocols": ["socks5", "http", "https"]
+  },
+  "fingerprintRules": {
+    "maskWebdriverOnPrototype": true,
+    "preventCanvasLyingFlag": true,
+    "spoofWebGLParameters": true
+  }
+}

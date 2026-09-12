@@ -199,4 +199,52 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Audit complete: Fingerprint completely masked.');
     }, 1200);
   });
+
+  // Right-Click Context Menu Implementation (User Rule Compliance)
+  const contextMenu = document.getElementById('custom-context-menu');
+  window.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    if (!contextMenu) return;
+    contextMenu.style.left = `${Math.min(e.clientX, window.innerWidth - 180)}px`;
+    contextMenu.style.top = `${Math.min(e.clientY, window.innerHeight - 180)}px`;
+    contextMenu.classList.add('open');
+  });
+
+  window.addEventListener('click', () => {
+    contextMenu?.classList.remove('open');
+  });
+
+  contextMenu?.addEventListener('click', async (e) => {
+    const item = e.target.closest('.context-menu-item');
+    if (!item) return;
+    const action = item.getAttribute('data-action');
+    try {
+      if (action === 'copy') {
+        const sel = window.getSelection()?.toString();
+        if (sel) await navigator.clipboard.writeText(sel);
+      } else if (action === 'paste') {
+        const text = await navigator.clipboard.readText();
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) {
+          active.value += text;
+        }
+      } else if (action === 'cut') {
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) {
+          await navigator.clipboard.writeText(active.value);
+          active.value = '';
+        }
+      } else if (action === 'selectall') {
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) {
+          active.select();
+        } else {
+          document.execCommand('selectAll');
+        }
+      }
+    } catch {
+      // Fallback
+    }
+    contextMenu.classList.remove('open');
+  });
 });

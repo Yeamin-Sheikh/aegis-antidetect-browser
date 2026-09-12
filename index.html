@@ -180,7 +180,7 @@
   <div id="modal-overlay" class="modal-overlay"></div>
 
   <!-- Create Profile Modal -->
-  <div id="new-profile-modal" class="modal-card" style="display: none; position: fixed; z-index: 301;">
+  <div id="new-profile-modal" class="modal-card">
     <button class="modal-close" style="position: absolute; top: 1.25rem; right: 1.25rem; background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer;">&times;</button>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
       <h3 style="font-size: 1.35rem; font-weight: 800;">Create Anti-Detect Profile</h3>
@@ -252,6 +252,15 @@
 
       <button type="submit" class="btn-cyan" style="width: 100%;">Save & Initialize Container</button>
     </form>
+  </div>
+
+  <!-- Custom Right-Click Context Menu -->
+  <div id="custom-context-menu" class="custom-context-menu">
+    <div class="context-menu-item" data-action="copy"><span>Copy</span> <span style="opacity:0.5;font-size:0.75rem;">Ctrl+C</span></div>
+    <div class="context-menu-item" data-action="cut"><span>Cut</span> <span style="opacity:0.5;font-size:0.75rem;">Ctrl+X</span></div>
+    <div class="context-menu-item" data-action="paste"><span>Paste</span> <span style="opacity:0.5;font-size:0.75rem;">Ctrl+V</span></div>
+    <div class="context-menu-divider"></div>
+    <div class="context-menu-item" data-action="selectall"><span>Select All</span> <span style="opacity:0.5;font-size:0.75rem;">Ctrl+A</span></div>
   </div>
 
   <div style="display: none;">

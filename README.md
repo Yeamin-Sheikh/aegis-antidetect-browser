@@ -8,12 +8,12 @@ Modern bot detection systems (Cloudflare Turnstile, Datadome, CreepJS, Fingerpri
 
 ## Key features
 
-- **Deterministic canvas noise:** Injects seeded sub-pixel noise into `HTMLCanvasElement.prototype.toDataURL` and `CanvasRenderingContext2D.prototype.getImageData`. Generates unique canvas hashes per profile without visual corruption.
+- **Deterministic canvas noise:** Injects seeded sub-pixel noise into `HTMLCanvasElement.prototype.toDataURL`, `toBlob`, and `CanvasRenderingContext2D.prototype.getImageData`. Generates unique canvas hashes per profile with full method parity, defeating canvas lying detection.
 - **WebGL hardware masking:** Spoofs `UNMASKED_VENDOR_WEBGL` and `UNMASKED_RENDERER_WEBGL` strings to emulate real desktop GPUs (NVIDIA RTX 4090, Apple M3, AMD Radeon).
-- **Navigator and hardware virtualization:** Controls `hardwareConcurrency` (CPU cores), `deviceMemory` (RAM), `platform`, languages, and removes `navigator.webdriver` flags.
-- **WebRTC leak defense:** Intercepts ICE candidates to prevent private LAN and non-proxied IP leaks.
+- **Navigator and hardware virtualization:** Controls `hardwareConcurrency` (CPU cores), `deviceMemory` (RAM), `platform`, languages, realistic `plugins` array, and removes `navigator.webdriver` on prototype chain.
+- **WebRTC leak defense:** Intercepts `onicecandidate`, event listeners, and injects Chromium `--force-webrtc-ip-handling-policy=disable_non_proxied_udp` to eliminate private LAN and non-proxied UDP leaks.
 - **Isolated profile manager:** Creates, clones, and stores browser profiles with dedicated user-data directories, proxies (SOCKS5/HTTP), and display resolutions.
-- **CLI launcher:** Command line utility generating Chromium launch arguments for automated pipelines.
+- **CLI launcher with physical browser launch:** Command line utility that finds local Chrome/Edge installations and can spawn real isolated browser instances via `node bin/aegis-launch.js --launch`.
 - **Interactive web dashboard:** Visual dashboard to configure containers, test fingerprint evasion, and export profile configurations to JSON.
 
 ## Project structure
@@ -44,6 +44,7 @@ aegis-antidetect-browser/
 │       └── profile-manager.js
 ├── tests/
 │   └── runner.js
+├── config.json
 ├── index.html
 ├── package.json
 └── README.md

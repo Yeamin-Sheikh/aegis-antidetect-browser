@@ -47,7 +47,7 @@ assert.strictEqual(webglRes.vendor, 'Google Inc. (NVIDIA)');
 assert.strictEqual(webglRes.renderer, 'ANGLE RTX 4090');
 console.log('✓ WebGL vendor/renderer spoofing module verified');
 
-// Test 5: Chromium Launch Flags Generation
+// Test 5: Chromium Launch Flags Generation & WebRTC Leak Defenses
 const pWithProxy = {
   id: 'test-node-1',
   screen: '1920x1080',
@@ -58,14 +58,21 @@ const flags = generateChromiumFlags(pWithProxy);
 assert.ok(flags.some(f => f.includes('--user-data-dir=./userData/test-node-1')));
 assert.ok(flags.some(f => f.includes('--proxy-server=socks5://127.0.0.1:9050')));
 assert.ok(flags.some(f => f.includes('--disable-blink-features=AutomationControlled')));
+assert.ok(flags.some(f => f.includes('--force-webrtc-ip-handling-policy=disable_non_proxied_udp')), 'Must include WebRTC policy flag');
+assert.ok(flags.some(f => f.includes('--enforce-webrtc-ip-permission-check')), 'Must include WebRTC permission check flag');
 assert.ok(flags.some(f => f.includes('--window-size=1920,1080')));
-console.log('✓ Chromium isolated launch flags generation verified');
+console.log('✓ Chromium isolated launch flags and WebRTC leak defenses verified');
 
 // Test 6: Injection Script Builder
 const script = buildInjectionScript(first);
 assert.ok(script.includes('injectCanvasSpoof'));
 assert.ok(script.includes('injectWebGLSpoof'));
 assert.ok(script.includes('injectNavigatorSpoof'));
+assert.ok(script.includes('injectWebRTCSpoof'));
 console.log('✓ Page injection script string compilation verified');
 
-console.log('\nAll Aegis Anti-Detect Browser tests passed successfully! (6/6)');
+// Test 7: Canvas toBlob and Parity Protection
+assert.strictEqual(injectCanvasSpoof(99999), true);
+console.log('✓ Canvas toDataURL and toBlob parity spoofing verified');
+
+console.log('\nAll Aegis Anti-Detect Browser tests passed successfully! (7/7)');
