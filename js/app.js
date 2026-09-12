@@ -58,14 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <div class="card-actions">
           <button class="btn-cyan launch-btn" data-id="${p.id}" style="flex-grow:1; padding:0.5rem;">
-            <svg class="icon" style="width:16px;height:16px;"><use href="assets/svgs/icons.svg#icon-play"></use></svg>
+            <svg class="icon" style="width:16px;height:16px;"><use href="#icon-play"></use></svg>
             Launch Browser
           </button>
           <button class="btn-outline clone-btn" data-id="${p.id}" title="Clone profile" style="padding:0.5rem 0.75rem;">
-            <svg class="icon" style="width:16px;height:16px;"><use href="assets/svgs/icons.svg#icon-copy"></use></svg>
+            <svg class="icon" style="width:16px;height:16px;"><use href="#icon-copy"></use></svg>
           </button>
           <button class="btn-outline delete-btn" data-id="${p.id}" title="Delete profile" style="padding:0.5rem 0.75rem; color:#EF4444; border-color:rgba(239,68,68,0.3);">
-            <svg class="icon" style="width:16px;height:16px;"><use href="assets/svgs/icons.svg#icon-trash"></use></svg>
+            <svg class="icon" style="width:16px;height:16px;"><use href="#icon-trash"></use></svg>
           </button>
         </div>
       </div>
