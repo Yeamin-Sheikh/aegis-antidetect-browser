@@ -203,3 +203,29 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+/* Accessibility, Skip Link, and Focus States */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 1rem;
+  background: var(--cyan, #06b6d4);
+  color: #0b1120;
+  padding: 0.6rem 1.2rem;
+  z-index: 10000;
+  font-weight: 700;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 0.2s ease-in-out;
+  box-shadow: var(--shadow-lg);
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan, #06b6d4);
+  outline-offset: 3px;
+}
+
